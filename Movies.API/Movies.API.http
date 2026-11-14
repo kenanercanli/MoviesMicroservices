@@ -1,0 +1,144 @@
+@Movies.API_HostAddress = http://localhost:5230
+
+GET {{Movies.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+# Seed the database with initial data
+GET {{Movies.API_HostAddress}}/api/SeedDb
+
+###
+
+# ---------- Directors ----------
+
+GET {{Movies.API_HostAddress}}/api/Directors
+Accept: application/json
+
+###
+
+GET {{Movies.API_HostAddress}}/api/Directors/1
+Accept: application/json
+
+###
+
+POST {{Movies.API_HostAddress}}/api/Directors
+Content-Type: application/json
+
+{
+  "firstName": "Denis",
+  "lastName": "Villeneuve",
+  "isRetired": false
+}
+
+###
+
+PUT {{Movies.API_HostAddress}}/api/Directors
+Content-Type: application/json
+
+{
+  "id": 4,
+  "firstName": "Denis",
+  "lastName": "Villeneuve",
+  "isRetired": true
+}
+
+###
+
+DELETE {{Movies.API_HostAddress}}/api/Directors/4
+
+###
+
+# ---------- Genres ----------
+
+GET {{Movies.API_HostAddress}}/api/Genres
+Accept: application/json
+
+###
+
+GET {{Movies.API_HostAddress}}/api/Genres/1
+Accept: application/json
+
+###
+
+POST {{Movies.API_HostAddress}}/api/Genres
+Content-Type: application/json
+
+{
+  "name": "Horror"
+}
+
+###
+
+PUT {{Movies.API_HostAddress}}/api/Genres
+Content-Type: application/json
+
+{
+  "id": 6,
+  "name": "Thriller"
+}
+
+###
+
+DELETE {{Movies.API_HostAddress}}/api/Genres/6
+
+###
+
+# ---------- Movies ----------
+
+GET {{Movies.API_HostAddress}}/api/Movies
+Accept: application/json
+
+###
+
+GET {{Movies.API_HostAddress}}/api/Movies/1
+Accept: application/json
+
+###
+
+POST {{Movies.API_HostAddress}}/api/Movies
+Content-Type: application/json
+
+{
+  "name": "Oppenheimer",
+  "releaseDate": "2023-07-21",
+  "totalRevenue": 975594977,
+  "directorId": 1,
+  "genreIds": [ 4 ]
+}
+
+###
+
+PUT {{Movies.API_HostAddress}}/api/Movies
+Content-Type: application/json
+
+{
+  "id": 7,
+  "name": "Oppenheimer",
+  "releaseDate": "2023-07-21",
+  "totalRevenue": 975594977,
+  "directorId": 1,
+  "genreIds": [ 3, 4 ]
+}
+
+###
+
+DELETE {{Movies.API_HostAddress}}/api/Movies/7
+
+###
+
+# Filter movies: only the sent properties are used for filtering
+POST {{Movies.API_HostAddress}}/api/Movies/Filter
+Content-Type: application/json
+
+{
+  "name": "the",
+  "directorId": 1,
+  "genreId": 4,
+  "releaseDateStart": "2000-01-01",
+  "releaseDateEnd": "2015-12-31",
+  "totalRevenueMin": 500000000,
+  "totalRevenueMax": 1100000000
+}
+
+###
