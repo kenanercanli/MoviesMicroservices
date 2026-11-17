@@ -53,10 +53,12 @@ Technologies:
 
 | Project | Launch profile | URL |
 |---|---|---|
-| Movies.API | `http` (first, default) | http://localhost:5230 (Swagger: http://localhost:5230/swagger) |
+| Movies.API | `http` (first profile, used by `dotnet run`) | http://localhost:5230 (Swagger: http://localhost:5230/swagger) |
 | Movies.API | `https` | https://localhost:7230 (and http://localhost:5230) |
 | Movies.Web | `http` | http://localhost:5240 |
 | Movies.Web | `https` | https://localhost:7240 (and http://localhost:5240) |
+
+> **Visual Studio and https:** Visual Studio may preselect the **https** profile. On the first https run it asks "Trust ASP.NET Core SSL Certificate?": click **Yes** (and confirm the Windows security warning) to trust the ASP.NET Core development certificate, or select the **http** profile in the toolbar instead. Both profiles work with the client.
 
 ### 1. API only
 
@@ -69,7 +71,7 @@ Technologies:
 
 ### 2. API and client together
 
-- **Visual Studio 2022:** right-click the solution, click **Configure Startup Projects**, select **Multiple startup projects** and set the **Action** of **Movies.API** and **Movies.Web** to **Start** (http profiles). Press **F5**: Swagger and the client (http://localhost:5240) open.
+- **Visual Studio 2022:** right-click the solution, click **Configure Startup Projects**, select **Multiple startup projects** and set the **Action** of **Movies.API** and **Movies.Web** to **Start**. The **Debug Target** column chooses the **http** or **https** profile of each project; recent Visual Studio versions save this selection as a launch profile (named **New Profile** by default) that is selected in the toolbar. Press **F5**: Swagger and the client (http://localhost:5240, or https://localhost:7240 with the https profile) open.
 - **Command line:** run the two projects in two terminals (in the solution folder):
   ```
   dotnet run --project Movies.API --launch-profile http
