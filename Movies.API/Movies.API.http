@@ -1,3 +1,11 @@
+# How to use this file:
+# 1. Start the API first with the "http" launch profile, which listens on port 5230
+#    (the same address as Movies.API_HostAddress below).
+# 2. Send the GET /api/SeedDb request first, because the sample ids used in the requests
+#    below (such as director 1, genre 4, movie 7) assume freshly seeded data.
+# 3. The update (PUT) and delete (DELETE) requests use those ids, for example the movie,
+#    director and genre created by the POST requests above them, so send them in order.
+
 @Movies.API_HostAddress = http://localhost:5230
 
 GET {{Movies.API_HostAddress}}/weatherforecast/
@@ -124,6 +132,34 @@ Content-Type: application/json
 ###
 
 DELETE {{Movies.API_HostAddress}}/api/Movies/7
+
+###
+
+# 400 Bad Request: director with id 999 doesn't exist, returns "Director not found!"
+POST {{Movies.API_HostAddress}}/api/Movies
+Content-Type: application/json
+
+{
+  "name": "Dune",
+  "releaseDate": "2021-10-22",
+  "totalRevenue": 407573628,
+  "directorId": 999,
+  "genreIds": [ 4 ]
+}
+
+###
+
+# 400 Bad Request: empty genreIds, returns "At least one genre is required!"
+POST {{Movies.API_HostAddress}}/api/Movies
+Content-Type: application/json
+
+{
+  "name": "Dune",
+  "releaseDate": "2021-10-22",
+  "totalRevenue": 407573628,
+  "directorId": 1,
+  "genreIds": [ ]
+}
 
 ###
 
